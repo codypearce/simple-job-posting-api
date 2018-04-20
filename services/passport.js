@@ -7,7 +7,7 @@ const LocalStrategy = require("passport-local");
 
 const localOptions = { usernameField: "email" };
 
-const localLogin = newLocalStrategy(localOptions, function(
+const localLogin = new LocalStrategy(localOptions, function(
     email,
     password,
     done
@@ -16,6 +16,14 @@ const localLogin = newLocalStrategy(localOptions, function(
         if (err) return done(err);
 
         if (!user) return done(null, false);
+        console.log(user);
+        user.comparePassword(password, function(err, isMatch) {
+            if (err) return done(err);
+            console.log(password);
+            if (!isMatch) return done(null, false);
+
+            return done(null, user);
+        });
     });
 });
 
@@ -37,3 +45,4 @@ const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
 });
 
 passport.use(jwtLogin);
+passport.use(localLogin);

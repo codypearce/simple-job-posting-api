@@ -5,9 +5,11 @@ const morgan = require("morgan");
 const app = express();
 const router = require("./router");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 mongoose.connect("mongodb://localhost/simple-job-posting-api");
 
+app.use(cors());
 app.use(morgan("combined"));
 app.use(bodyParser.json({ type: "*/*" }));
 router(app);

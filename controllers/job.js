@@ -42,3 +42,12 @@ exports.update = function(req, res, next) {
         }
     );
 };
+
+exports.delete = function(req, res, next) {
+    const id = req.params.id;
+
+    Job.remove({ _id: id }, (err, job) => {
+        if (err) return res.send(500, { error: err });
+        return res.send(200, { message: "success" });
+    });
+};

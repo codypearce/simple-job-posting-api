@@ -28,3 +28,17 @@ exports.read = function(req, res, next) {
         return res.json(job);
     });
 };
+
+exports.update = function(req, res, next) {
+    const id = req.params.id;
+
+    Job.findOneAndUpdate(
+        { _id: id },
+        req.body,
+        { upsert: true },
+        (err, job) => {
+            if (err) return res.send(500, { error: err });
+            return res.send(200, { message: "success" });
+        }
+    );
+};

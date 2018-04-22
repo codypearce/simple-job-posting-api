@@ -17,4 +17,5 @@ module.exports = function(app) {
     app.get("/jobs", Job.index);
     app.post("/jobs", Job.create);
     app.get("/jobs/:id", Job.read);
+    app.put("/jobs/:id", Job.update);
 };

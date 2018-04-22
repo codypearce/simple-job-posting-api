@@ -1,4 +1,6 @@
 const Auth = require("./controllers/auth");
+const Job = require("./controllers/job");
+
 const passportService = require("./services/passport");
 const passport = require("passport");
 
@@ -11,4 +13,6 @@ module.exports = function(app) {
     );
     app.post("/signup", Auth.signup);
     app.post("/signin", requireSignin, Auth.signin);
+
+    app.get("/jobs", Job.index);
 };

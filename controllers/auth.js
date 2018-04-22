@@ -4,11 +4,15 @@ const config = require("../config");
 
 function tokenForUser(user) {
     const timestamp = new Date().getTime();
-    return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+    const omitUser = { email: user.email };
+    return jwt.encode({ user: omitUser, iat: timestamp }, config.secret);
 }
 
 exports.signin = function(req, res, next) {
-    res.send({ token: tokenForUser(req.user) });
+    res.send({
+        user: { email: req.user.email },
+        token: tokenForUser(req.user)
+    });
 };
 
 exports.signup = function(req, res, next) {
@@ -34,7 +38,10 @@ exports.signup = function(req, res, next) {
         user.save(function(err) {
             if (err) return next(err);
 
-            res.json({ token: tokenForUser(user) });
+            res.json({
+                user: { email: user.email },
+                token: tokenForUser(user)
+            });
         });
     });
 };

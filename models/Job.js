@@ -5,7 +5,7 @@ const userSchema = new Schema({
     title: String,
     company: String,
     location: String,
-    descript: String,
+    description: String,
     tags: Array
 });
 

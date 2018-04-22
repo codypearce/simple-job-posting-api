@@ -15,4 +15,5 @@ module.exports = function(app) {
     app.post("/signin", requireSignin, Auth.signin);
 
     app.get("/jobs", Job.index);
+    app.post("/jobs", Job.create);
 };

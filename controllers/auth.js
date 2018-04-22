@@ -5,7 +5,10 @@ const config = require("../config");
 function tokenForUser(user) {
     const timestamp = new Date().getTime();
     const omitUser = { email: user.email };
-    return jwt.encode({ user: omitUser, iat: timestamp }, config.secret);
+    return jwt.encode(
+        { user: omitUser, sub: user.id, iat: timestamp },
+        config.secret
+    );
 }
 
 exports.signin = function(req, res, next) {
@@ -40,6 +43,7 @@ exports.signup = function(req, res, next) {
 
             res.json({
                 user: { email: user.email },
+                sub: user.id,
                 token: tokenForUser(user)
             });
         });

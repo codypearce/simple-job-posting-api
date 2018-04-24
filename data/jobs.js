@@ -1,4 +1,4 @@
-export let jobs = [
+module.exports = jobs = [
     {
         title: "Junior Developer",
         company: "Google",
